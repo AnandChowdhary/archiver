@@ -3,13 +3,13 @@
     "moduleResolution": "node",
     "target": "es6",
     "module": "commonjs",
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
     "strict": true,
     "sourceMap": true,
     "declaration": true,
     "esModuleInterop": true,
     "declarationDir": "./dist",
-    "outDir": "./dist",
+    "outDir": "./dist"
   },
   "include": ["index.ts"],
   "exclude": ["node_modules"]
