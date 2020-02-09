@@ -1,9 +1,15 @@
 import { readFile } from "fs-extra";
 import { load } from "js-yaml";
 import { join } from "path";
+import {} from "puppeteer";
 
 export const archive = async () => {
-  const yamlFile = await readFile(join(__dirname, "..", "urls.yml"));
-  const yaml = load(yamlFile.toString());
-  console.log("yaml", yaml);
+  const yarn = await readFile(join(__dirname, "..", "urls.yml"));
+  const urls: string[] = load(yarn.toString());
+  for await (const url of urls) {
+    await archiveUrl(url);
+    console.log("✓ Archived", url);
+  }
 };
+
+const archiveUrl = async (url: string) => {};
