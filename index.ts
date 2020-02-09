@@ -30,10 +30,11 @@ const login = async (page: Page) => {
   await page.type(".login-form input[type=password]", password, { delay: 20 });
   await page.click(".login-form input[type=submit]");
   await page.waitForNavigation();
-  console.log(page.url(), "DONE");
+  console.log("✅  Logged in to archive.org");
 };
 
 const archiveUrl = async (url: string, page: Page) => {
+  console.log("⏳ ", url);
   await page.goto("https://web.archive.org/save");
   await page.type(".web-save-form input#web-save-url-input", url, {
     delay: 20
@@ -42,7 +43,6 @@ const archiveUrl = async (url: string, page: Page) => {
     checks.forEach(c => ((c as HTMLInputElement).checked = true))
   );
   await page.click(".web-save-form input[type=submit]");
-  await page.waitForNavigation();
   await page.waitFor(10000);
   return page.url();
 };
