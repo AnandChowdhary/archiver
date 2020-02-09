@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.25",
+    "@types/js-yaml": "^3.12.2",
     "coveralls": "^3.0.9",
     "jest": "^24.9.0",
     "ts-jest": "^24.2.0",
@@ -28,5 +29,10 @@
       "js",
       "jsx"
     ]
+  },
+  "dependencies": {
+    "fs-extra": "^8.1.0",
+    "js-yaml": "^3.13.1",
+    "puppeteer": "^2.1.1"
   }
 }
