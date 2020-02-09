@@ -43,5 +43,6 @@ const archiveUrl = async (url: string, page: Page) => {
   );
   await page.click(".web-save-form input[type=submit]");
   await page.waitForNavigation();
+  await page.waitFor(10000);
   return page.url();
 };
