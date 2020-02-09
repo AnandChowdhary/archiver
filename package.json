@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
+  "repository": "git@github.com:AnandChowdhary/archiver",
+  "author": "Anand Chowdhary <mail@anandchowdhary.com>",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
