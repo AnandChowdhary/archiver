@@ -17,24 +17,26 @@ export const archive = async () => {
   await login(page);
   for await (const url of urls) {
     const archivedUrl = await archiveUrl(url, page);
-    console.log("✅ ", url, archivedUrl);
+    console.log("✅ ", archivedUrl);
   }
+  await page.goto("https://archive.org/account/logout");
   await browser.close();
   console.log("✅  Archived all pages");
   process.exit(0);
 };
 
 const login = async (page: Page) => {
+  console.log("⏳  Logging in to archive.org...");
   await page.goto("https://archive.org/account/login");
   await page.type(".login-form input[type=email]", username, { delay: 20 });
   await page.type(".login-form input[type=password]", password, { delay: 20 });
   await page.click(".login-form input[type=submit]");
   await page.waitForNavigation();
-  console.log("✅  Logged in to archive.org");
+  console.log("✅  Logged in");
 };
 
 const archiveUrl = async (url: string, page: Page) => {
-  console.log("⏳ ", url);
+  console.log("⏳  Archiving", url);
   await page.goto("https://web.archive.org/save");
   await page.type(".web-save-form input#web-save-url-input", url, {
     delay: 20
@@ -43,6 +45,6 @@ const archiveUrl = async (url: string, page: Page) => {
     checks.forEach(c => ((c as HTMLInputElement).checked = true))
   );
   await page.click(".web-save-form input[type=submit]");
-  await page.waitFor(10000);
+  await page.waitFor(30000);
   return page.url();
 };
