@@ -5,25 +5,43 @@ import { join } from "path";
 import { launch, Page } from "puppeteer";
 
 config();
+const username = process.env.USERNAME || "";
+const password = process.env.PASSWORD || "";
 
 export const archive = async () => {
-  console.log("⏳ Starting archiving process...");
+  console.log("⏳  Starting archiving process...");
   const yarn = await readFile(join(__dirname, "..", "urls.yml"));
   const urls: string[] = load(yarn.toString());
   const browser = await launch();
   const page = await browser.newPage();
   await login(page);
-  // for await (const url of urls) {
-  //   await archiveUrl(url, page);
-  //   console.log("✅", url);
-  // }
-  // await browser.close();
-  // console.log("✅ Archived all pages");
+  for await (const url of urls) {
+    const archivedUrl = await archiveUrl(url, page);
+    console.log("✅ ", url, archivedUrl);
+  }
+  await browser.close();
+  console.log("✅  Archived all pages");
+  process.exit(0);
 };
 
-const login = async (page: Page) => {};
+const login = async (page: Page) => {
+  await page.goto("https://archive.org/account/login");
+  await page.type(".login-form input[type=email]", username, { delay: 20 });
+  await page.type(".login-form input[type=password]", password, { delay: 20 });
+  await page.click(".login-form input[type=submit]");
+  await page.waitForNavigation();
+  console.log(page.url(), "DONE");
+};
 
 const archiveUrl = async (url: string, page: Page) => {
   await page.goto("https://web.archive.org/save");
-  await page.type("input#web-save-url-input", url, { delay: 20 });
+  await page.type(".web-save-form input#web-save-url-input", url, {
+    delay: 20
+  });
+  await page.$$eval(".web-save-form input[type=checkbox]", checks =>
+    checks.forEach(c => ((c as HTMLInputElement).checked = true))
+  );
+  await page.click(".web-save-form input[type=submit]");
+  await page.waitForNavigation();
+  return page.url();
 };
