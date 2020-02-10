@@ -1,7 +1,7 @@
 name: Archive
 on:
   schedule:
-    - cron: "3 3 * * 1"
+    - cron: "3 8 * * 1"
 jobs:
   build:
     runs-on: ubuntu-latest
