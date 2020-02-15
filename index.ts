@@ -35,6 +35,10 @@ const login = async (page: Page) => {
   console.log("✅  Logged in");
 };
 
+const wait = (time: number) => new Promise(resolve => {
+  setTimeout(() => resolve(), time);
+});
+
 const archiveUrl = async (url: string, page: Page) => {
   console.log("⏳  Archiving", url);
   await page.goto("https://web.archive.org/save");
@@ -45,6 +49,6 @@ const archiveUrl = async (url: string, page: Page) => {
     checks.forEach(c => ((c as HTMLInputElement).checked = true))
   );
   await page.click(".web-save-form input[type=submit]");
-  await page.waitFor(30000);
+  await wait(60000);
   return page.url();
 };
