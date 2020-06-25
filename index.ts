@@ -49,7 +49,7 @@ const archiveUrl = async (url: string, page: Page) => {
     checks.forEach((c, i) => {
       if (i !== checks.length - 1)
         (c as HTMLInputElement).checked = true;
-    }
+    })
   );
   await page.click(".web-save-form input[type=submit]");
   await wait(60000);
