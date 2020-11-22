@@ -17,6 +17,6 @@ jobs:
       - run: npm install
       - run: npm run start
         env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          USERNAME: ${{ secrets.jakeobwalket@gmail.com }}
+          PASSWORD: ${{ secrets.tomatomycat }}
           CI: true
